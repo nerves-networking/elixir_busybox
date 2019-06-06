@@ -60,9 +60,12 @@ $(TOP)/make_menuconfig: Makefile
 	echo "#!/bin/sh\n$(MAKE_ENV) $(MAKE) $(MAKE_OPTS) -C $(BUILD) menuconfig\ncp $(BUILD)/.config $(TOP)/busybox.config" > $(TOP)/make_menuconfig
 
 fake_install: $(PREFIX)
-	mkdir -p $(PREFIX)/bin
+	mkdir -p $(PREFIX)/bin $(PREFIX)/sbin $(PREFIX)/usr/bin $(PREFIX)/usr/sbin
 	echo "#!/bin/sh\necho \"BusyBox v$(BUSYBOX_VERSION) () multi-call binary.\"\n" > $(PREFIX)/bin/busybox
-	chmod +x $(PREFIX)/bin/busybox
+	echo "#!/bin/sh\nexit 1\n" > $(PREFIX)/bin/false
+	echo "#!/bin/sh\nexit 1\n" > $(PREFIX)/sbin/udhcpc
+	echo "#!/bin/sh\nexit 1\n" > $(PREFIX)/sbin/udhcpd
+	chmod +x $(PREFIX)/bin/busybox $(PREFIX)/bin/false $(PREFIX)/sbin/udhcpc $(PREFIX)/sbin/udhcpd
 
 # Initialize the build directory, but use our .config (use make oldconfig to fixup symbols)
 $(BUILD)/.config: $(SRC_TOP)/.extracted $(TOP)/busybox.config
