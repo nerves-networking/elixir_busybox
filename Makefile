@@ -26,8 +26,7 @@ GNU_TARGET_NAME = $(notdir $(CROSSCOMPILE))
 GNU_HOST_NAME =
 
 MAKE_ENV = KCONFIG_NOTIMESTAMP=1
-MAKE_OPTS = CONFIG_PREFIX="$(PREFIX)" \
-	    SKIP_STRIP=y
+MAKE_OPTS = CONFIG_PREFIX="$(PREFIX)"
 
 ifneq ($(CROSSCOMPILE),)
 MAKE_OPTS += CROSS_COMPILE="$(CROSSCOMPILE)-"
@@ -52,9 +51,13 @@ calling_from_make:
 
 all: $(TARGETS)
 
-install: $(BUILD) $(PREFIX) $(BUILD)/.config
+install: $(BUILD) $(PREFIX) $(BUILD)/.config $(TOP)/make_menuconfig
 	$(MAKE_ENV) $(MAKE) $(MAKE_OPTS) -C $(BUILD)
 	$(MAKE_ENV) $(MAKE) $(MAKE_OPTS) -C $(BUILD) install
+
+$(TOP)/make_menuconfig: Makefile
+	# Simple script for running "make menuconfig"
+	echo "#!/bin/sh\n$(MAKE_ENV) $(MAKE) $(MAKE_OPTS) -C $(BUILD) menuconfig\ncp $(BUILD)/.config $(TOP)/busybox.config" > $(TOP)/make_menuconfig
 
 fake_install: $(PREFIX)
 	mkdir -p $(PREFIX)/bin
@@ -66,9 +69,6 @@ $(BUILD)/.config: $(SRC_TOP)/.extracted $(TOP)/busybox.config
 	$(MAKE_ENV) $(MAKE) -C $(BUILD) KBUILD_SRC=$(SRC_TOP) $(MAKE_OPTS) -f $(SRC_TOP)/Makefile defconfig
 	cp $(TOP)/busybox.config $(BUILD)/.config
 	yes | $(MAKE_ENV) $(MAKE) $(MAKE_OPTS) -C $(BUILD) oldconfig
-
-menuconfig: $(BUILD)/.config
-	$(MAKE_ENV) $(MAKE) $(MAKE_OPTS) -C $(BUILD) menuconfig
 
 $(PREFIX) $(BUILD):
 	mkdir -p $@
@@ -88,4 +88,4 @@ clean:
 distclean: clean
 	$(RM) $(TOP)/busybox-$(BUSYBOX_VERSION).tar.bz2
 
-.PHONY: all clean distclean calling_from_make fake_install install menuconfig
+.PHONY: all clean distclean calling_from_make fake_install install
