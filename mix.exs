@@ -37,8 +37,17 @@ defmodule ElixirBusybox.MixProject do
 
   defp package do
     [
+      files: [
+        "busybox.config",
+        "busybox.hash",
+        "lib",
+        "mix.exs",
+        "README.md",
+        "LICENSE",
+        "Makefile"
+      ],
       licenses: ["GPL-2.0", "MIT"],
-      links: %{"GitHub" => "https://github.com/fhunleth/elixir_busybox"}
+      links: %{"GitHub" => "https://github.com/nerves-networking/elixir_busybox"}
     ]
   end
 
