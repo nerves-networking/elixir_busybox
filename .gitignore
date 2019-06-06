@@ -23,4 +23,7 @@ erl_crash.dump
 elixir_busybox-*.tar
 
 # Package downloads
-busybox-*
+/busybox-*
+
+# Ignore make menuconfig helper script
+/make_menuconfig
