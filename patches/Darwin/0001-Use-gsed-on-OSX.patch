@@ -1,0 +1,71 @@
+From b468370d93be71daa3692433f4252bacd90dbd15 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Thu, 6 Jun 2019 16:50:17 -0400
+Subject: [PATCH] Use gsed on OSX
+
+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
+---
+ scripts/gen_build_files.sh | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/scripts/gen_build_files.sh b/scripts/gen_build_files.sh
+index 92de681..930db61 100755
+--- a/scripts/gen_build_files.sh
++++ b/scripts/gen_build_files.sh
+@@ -43,7 +43,7 @@ generate()
+ 		# rules re handling of "\n" in echo params.
+ 		printf "%s\n" "${header}"
+ 		# print everything up to INSERT line
+-		sed -n '/^INSERT$/ q; p' "${src}"
++		gsed -n '/^INSERT$/ q; p' "${src}"
+ 		# copy stdin to stdout
+ 		cat
+ 		if [ -n "$loc" ]
+@@ -51,7 +51,7 @@ generate()
+ 			custom_scripts "$loc"
+ 		fi
+ 		# print everything after INSERT line
+-		sed -n '/^INSERT$/ {
++		gsed -n '/^INSERT$/ {
+ 		:l
+ 		    n
+ 		    p
+@@ -67,7 +67,7 @@ generate()
+ }
+ 
+ # (Re)generate include/applets.h
+-sed -n 's@^//applet:@@p' "$srctree"/*/*.c "$srctree"/*/*/*.c \
++gsed -n 's@^//applet:@@p' "$srctree"/*/*.c "$srctree"/*/*/*.c \
+ | generate \
+ 	"$srctree/include/applets.src.h" \
+ 	"include/applets.h" \
+@@ -82,7 +82,7 @@ TAB="$(printf '\tX')"
+ TAB="${TAB%X}"
+ LF="$(printf '\nX')"
+ LF="${LF%X}"
+-sed -n -e 's@^//usage:\([ '"$TAB"'].*\)$@\1 \\@p' \
++gsed -n -e 's@^//usage:\([ '"$TAB"'].*\)$@\1 \\@p' \
+        -e 's@^//usage:\([^ '"$TAB"'].*\)$@\'"$LF"'\1 \\@p' \
+ 	"$srctree"/*/*.c "$srctree"/*/*/*.c \
+ | generate \
+@@ -101,7 +101,7 @@ sed -n -e 's@^//usage:\([ '"$TAB"'].*\)$@\1 \\@p' \
+ 	if test -f "$src"; then
+ 		mkdir -p -- "$d" 2>/dev/null
+ 
+-		sed -n 's@^//kbuild:@@p' "$srctree/$d"/*.c \
++		gsed -n 's@^//kbuild:@@p' "$srctree/$d"/*.c \
+ 		| generate \
+ 			"${src}" "${dst}" \
+ 			"# DO NOT EDIT. This file is generated from Kbuild.src"
+@@ -112,7 +112,7 @@ sed -n -e 's@^//usage:\([ '"$TAB"'].*\)$@\1 \\@p' \
+ 	if test -f "$src"; then
+ 		mkdir -p -- "$d" 2>/dev/null
+ 
+-		sed -n 's@^//config:@@p' "$srctree/$d"/*.c \
++		gsed -n 's@^//config:@@p' "$srctree/$d"/*.c \
+ 		| generate \
+ 			"${src}" "${dst}" \
+ 			"# DO NOT EDIT. This file is generated from Config.src"
+-- 
+2.20.1 (Apple Git-117)
+

@@ -36,6 +36,7 @@ ifeq ($(shell uname -s),Darwin)
 # Fixes to build on OSX
 MAKE_OPTS += SED=gsed
 MAKE = $(shell which gmake)
+PATCH_DIRS = $(TOP)/patches/Darwin
 
 ifeq ($(CROSSCOMPILE),)
 $(warning Native OS compilation is not supported on OSX. Skipping compilation.)
@@ -68,7 +69,7 @@ fake_install: $(PREFIX)
 	chmod +x $(PREFIX)/bin/busybox $(PREFIX)/bin/false $(PREFIX)/sbin/udhcpc $(PREFIX)/sbin/udhcpd
 
 # Initialize the build directory, but use our .config (use make oldconfig to fixup symbols)
-$(BUILD)/.config: $(SRC_TOP)/.extracted $(TOP)/busybox.config
+$(BUILD)/.config: $(SRC_TOP)/.patched $(TOP)/busybox.config
 	$(MAKE_ENV) $(MAKE) -C $(BUILD) KBUILD_SRC=$(SRC_TOP) $(MAKE_OPTS) -f $(SRC_TOP)/Makefile defconfig
 	cp $(TOP)/busybox.config $(BUILD)/.config
 	yes | $(MAKE_ENV) $(MAKE) $(MAKE_OPTS) -C $(BUILD) oldconfig
@@ -83,6 +84,14 @@ $(SRC_TOP)/.extracted: $(TOP)/busybox-$(BUSYBOX_VERSION).tar.bz2
 	sha256sum -c busybox.hash
 	tar xf $<
 	touch $(SRC_TOP)/.extracted
+
+$(SRC_TOP)/.patched: $(SRC_TOP)/.extracted
+	cd $(SRC_TOP); \
+	for patchdir in $(PATCH_DIRS); do \
+	    for patch in $$(ls $$patchdir); do \
+		patch -p1 < "$$patchdir/$$patch"; \
+	    done; \
+	done
 
 clean:
 	if [ -n "$(MIX_COMPILE_PATH)" ]; then $(RM) -r $(BUILD); fi

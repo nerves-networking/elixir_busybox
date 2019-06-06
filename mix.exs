@@ -41,6 +41,7 @@ defmodule ElixirBusybox.MixProject do
         "busybox.config",
         "busybox.hash",
         "lib",
+        "patches",
         "mix.exs",
         "README.md",
         "LICENSE",
