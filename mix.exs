@@ -9,6 +9,7 @@ defmodule ElixirBusybox.MixProject do
       compilers: [:elixir_make | Mix.compilers()],
       make_targets: ["all"],
       make_clean: ["clean"],
+      make_args: make_args(),
       start_permanent: Mix.env() == :prod,
       build_embedded: true,
       deps: deps(),
@@ -39,5 +40,10 @@ defmodule ElixirBusybox.MixProject do
       licenses: ["GPL-2.0", "MIT"],
       links: %{"GitHub" => "https://github.com/fhunleth/elixir_busybox"}
     ]
+  end
+
+  defp make_args do
+    # Tell make to use all cores when building
+    ["-j", to_string(:erlang.system_info(:schedulers))]
   end
 end
