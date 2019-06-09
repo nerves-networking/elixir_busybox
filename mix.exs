@@ -1,9 +1,9 @@
-defmodule ElixirBusybox.MixProject do
+defmodule Busybox.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :elixir_busybox,
+      app: :busybox,
       version: "0.1.0",
       elixir: "~> 1.6",
       compilers: [:elixir_make | Mix.compilers()],
@@ -20,7 +20,7 @@ defmodule ElixirBusybox.MixProject do
   end
 
   def application do
-    [mod: {ElixirBusybox.Application, []}]
+    [mod: {Busybox.Application, []}]
   end
 
   defp deps do

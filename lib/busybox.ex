@@ -1,4 +1,4 @@
-defmodule ElixirBusybox do
+defmodule Busybox do
   @moduledoc """
   BusyBox for Elixir programs
 
@@ -44,7 +44,7 @@ defmodule ElixirBusybox do
   """
   @spec path :: [Path.t()]
   def path() do
-    priv_path = Application.app_dir(:elixir_busybox, "priv")
+    priv_path = Application.app_dir(:busybox, "priv")
     install_dirs = ["bin", "usr/bin", "sbin", "usr/sbin"]
     Enum.map(install_dirs, &Path.join(priv_path, &1))
   end

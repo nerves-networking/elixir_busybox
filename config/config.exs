@@ -10,11 +10,11 @@ use Mix.Config
 
 # You can configure your application as:
 #
-#     config :elixir_busybox, key: :value
+#     config :busybox, key: :value
 #
 # and access this configuration in your application as:
 #
-#     Application.get_env(:elixir_busybox, :key)
+#     Application.get_env(:busybox, :key)
 #
 # You can also configure a third-party app:
 #
