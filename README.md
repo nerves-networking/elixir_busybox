@@ -44,7 +44,7 @@ upstream project's spellings in our documentation.  In Elixir, the convention
 would be to either use `busy_box` or `Busybox`. We decided that the lowercase
 spelling was more important to stay the same since the main executable was named
 `busybox`. Therefore, to stay consistent with Elixir conventions, the main
-module is named `Busybox.
+module is named `Busybox`.
 
 ## Licenses
 
