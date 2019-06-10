@@ -40,6 +40,7 @@ defmodule Busybox.MixProject do
       files: [
         "busybox.config",
         "busybox.hash",
+        "CHANGELOG.md",
         "lib",
         "patches",
         "mix.exs",
