@@ -4,7 +4,7 @@ defmodule Busybox.MixProject do
   def project do
     [
       app: :busybox,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.6",
       compilers: [:elixir_make | Mix.compilers()],
       make_targets: ["all"],
