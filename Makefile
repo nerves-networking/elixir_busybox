@@ -61,12 +61,17 @@ $(TOP)/make_menuconfig: Makefile
 	printf "#!/bin/sh\n$(MAKE_ENV) $(MAKE) $(MAKE_OPTS) -C $(BUILD) menuconfig\ncp $(BUILD)/.config $(TOP)/busybox.config" > $(TOP)/make_menuconfig
 
 fake_install: $(PREFIX)
+	# Fake some scripts to aide regression testing on platforms that can't
+	# compile Busybox
 	mkdir -p $(PREFIX)/bin $(PREFIX)/sbin $(PREFIX)/usr/bin $(PREFIX)/usr/sbin
-	echo "#!/bin/sh\necho \"BusyBox v$(BUSYBOX_VERSION) () multi-call binary.\"\n" > $(PREFIX)/bin/busybox
-	echo "#!/bin/sh\nexit 1\n" > $(PREFIX)/bin/false
-	echo "#!/bin/sh\nexit 1\n" > $(PREFIX)/sbin/udhcpc
-	echo "#!/bin/sh\nexit 1\n" > $(PREFIX)/sbin/udhcpd
-	chmod +x $(PREFIX)/bin/busybox $(PREFIX)/bin/false $(PREFIX)/sbin/udhcpc $(PREFIX)/sbin/udhcpd
+	printf "#!/bin/sh\nprintf \"BusyBox v$(BUSYBOX_VERSION) () multi-call binary.\\\n\"\n" > $(PREFIX)/bin/busybox
+	printf "#!/bin/sh\nexit 1\n" > $(PREFIX)/bin/false
+	printf "#!/bin/sh\nexit 1\n" > $(PREFIX)/sbin/udhcpc
+	printf "#!/bin/sh\nexit 1\n" > $(PREFIX)/sbin/udhcpd
+	printf '#!/bin/sh\n/usr/bin/touch "$$1"\n' > $(PREFIX)/usr/bin/touch
+	chmod +x $(PREFIX)/bin/busybox $(PREFIX)/bin/false \
+	    $(PREFIX)/sbin/udhcpc $(PREFIX)/sbin/udhcpd \
+	    $(PREFIX)/usr/bin/touch
 
 # Initialize the build directory, but use our .config (use make oldconfig to fixup symbols)
 $(BUILD)/.config: $(SRC_TOP)/.patched $(TOP)/busybox.config
