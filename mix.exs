@@ -1,10 +1,12 @@
 defmodule Busybox.MixProject do
   use Mix.Project
 
+  @version "0.1.1"
+
   def project do
     [
       app: :busybox,
-      version: "0.1.1",
+      version: @version,
       elixir: "~> 1.6",
       compilers: [:elixir_make | Mix.compilers()],
       make_targets: ["all"],
@@ -13,7 +15,7 @@ defmodule Busybox.MixProject do
       start_permanent: Mix.env() == :prod,
       build_embedded: true,
       deps: deps(),
-      docs: [extras: ["README.md"], main: "readme"],
+      docs: docs(),
       description: description(),
       package: package()
     ]
@@ -26,7 +28,7 @@ defmodule Busybox.MixProject do
   defp deps do
     [
       {:elixir_make, "~> 0.5", runtime: false},
-      {:ex_doc, "~> 0.19", only: :dev, runtime: false},
+      {:ex_doc, "~> 0.19", only: :docs, runtime: false},
       {:dialyxir, "~> 1.0.0-rc.6", only: [:dev, :test], runtime: false}
     ]
   end
@@ -50,6 +52,15 @@ defmodule Busybox.MixProject do
       ],
       licenses: ["GPL-2.0", "MIT"],
       links: %{"GitHub" => "https://github.com/nerves-networking/elixir_busybox"}
+    ]
+  end
+
+  defp docs do
+    [
+      extras: ["README.md"],
+      main: "readme",
+      source_ref: "v#{@version}",
+      source_url: "https://github.com/nerves-networking/elixir_busybox"
     ]
   end
 
