@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.1.2
+
+* Improvements
+  * Support sending out the DNS server's IP address with udhcpd
+
+* Bug fixes
+  * Minor tweaks to scripts to make them work on different platforms better
+  * Improvements to stubs generated on OSX to make some trivial unit testing
+    possible in applications that use this
+
 ## v0.1.1
 
 * Bug fixes
