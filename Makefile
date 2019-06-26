@@ -58,7 +58,7 @@ install: $(BUILD) $(PREFIX) $(BUILD)/.config $(TOP)/make_menuconfig
 
 $(TOP)/make_menuconfig: Makefile
 	# Simple script for running "make menuconfig"
-	echo -e "#!/bin/sh\n$(MAKE_ENV) $(MAKE) $(MAKE_OPTS) -C $(BUILD) menuconfig\ncp $(BUILD)/.config $(TOP)/busybox.config" > $(TOP)/make_menuconfig
+	printf "#!/bin/sh\n$(MAKE_ENV) $(MAKE) $(MAKE_OPTS) -C $(BUILD) menuconfig\ncp $(BUILD)/.config $(TOP)/busybox.config" > $(TOP)/make_menuconfig
 
 fake_install: $(PREFIX)
 	mkdir -p $(PREFIX)/bin $(PREFIX)/sbin $(PREFIX)/usr/bin $(PREFIX)/usr/sbin
