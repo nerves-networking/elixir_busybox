@@ -106,6 +106,7 @@ $(SRC_TOP)/.patched: $(SRC_TOP)/.extracted
 		patch -p1 < "$$patchdir/$$patch"; \
 	    done; \
 	done
+	touch $(SRC_TOP)/.patched
 
 clean:
 	if [ -n "$(MIX_COMPILE_PATH)" ]; then $(RM) -r $(BUILD); fi
