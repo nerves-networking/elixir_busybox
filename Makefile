@@ -34,8 +34,17 @@ endif
 
 ifeq ($(shell uname -s),Darwin)
 # Fixes to build on OSX
-MAKE_OPTS += SED=gsed
 MAKE = $(shell which gmake)
+ifeq ($(MAKE),)
+    $(error gmake required to build. Install by running "brew install homebrew/core/make")
+endif
+
+SED = $(shell which gsed)
+ifeq ($(SED),)
+    $(error gsed required to build. Install by running "brew install gnu-sed")
+endif
+
+MAKE_OPTS += SED=$(SED)
 PATCH_DIRS = $(TOP)/patches/Darwin
 
 ifeq ($(CROSSCOMPILE),)
