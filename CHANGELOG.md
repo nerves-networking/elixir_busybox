@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.1.3
+
+* Bug fixes
+  * Fix issue causing Busybox patches to be re-applied on rebuilds
+  * Add error messages when packages are missing on OSX
+
 ## v0.1.2
 
 * Improvements
