@@ -12,6 +12,7 @@ defmodule Busybox.MixProject do
       make_targets: ["all"],
       make_clean: ["clean"],
       make_args: make_args(),
+      make_error_message: "",
       start_permanent: Mix.env() == :prod,
       build_embedded: true,
       deps: deps(),
