@@ -14,7 +14,7 @@
 # CFLAGS	compiler flags for compiling all C files
 # LDFLAGS	linker flags for linking all binaries
 
-BUSYBOX_VERSION = 1.30.1
+BUSYBOX_VERSION = 1.31.1
 
 TOP := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
 SRC_TOP = $(TOP)/busybox-$(BUSYBOX_VERSION)
