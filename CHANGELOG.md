@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.1.4
+
+* Updates
+  * Bump Busybox to 1.31.1. This is the latest stable release.
+
+* Bug fixes
+  * Remove parallel build. This causes issues on Macs and it's not clear why. It
+    seems simpler to remove it for now.
+
 ## v0.1.3
 
 * Bug fixes
