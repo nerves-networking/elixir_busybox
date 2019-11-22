@@ -1,7 +1,8 @@
 # BusyBox for Elixir programs
 
-[![CircleCI](https://circleci.com/gh/nerves-networking/elixir_busybox.svg?style=svg)](https://circleci.com/gh/nerves-networking/elixir_busybox)
 [![Hex version](https://img.shields.io/hexpm/v/busybox.svg "Hex version")](https://hex.pm/packages/busybox)
+[![API docs](https://img.shields.io/hexpm/v/busybox.svg?label=hexdocs "API docs")](https://hexdocs.pm/busybox/Busybox.html)
+[![CircleCI](https://circleci.com/gh/nerves-networking/elixir_busybox.svg?style=svg)](https://circleci.com/gh/nerves-networking/elixir_busybox)
 
 [BusyBox](https://www.busybox.net/) is a C program that provides implementations
 of many Unix utilities in one small package. It is frequently used in embedded
