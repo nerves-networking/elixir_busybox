@@ -11,7 +11,6 @@ defmodule Busybox.MixProject do
       compilers: [:elixir_make | Mix.compilers()],
       make_targets: ["all"],
       make_clean: ["clean"],
-      make_args: make_args(),
       make_error_message: "",
       start_permanent: Mix.env() == :prod,
       build_embedded: true,
@@ -63,10 +62,5 @@ defmodule Busybox.MixProject do
       source_ref: "v#{@version}",
       source_url: "https://github.com/nerves-networking/elixir_busybox"
     ]
-  end
-
-  defp make_args do
-    # Tell make to use all cores when building
-    ["-j", to_string(:erlang.system_info(:schedulers))]
   end
 end
