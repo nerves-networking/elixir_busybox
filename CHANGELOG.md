@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.1.5
+
+* Bug fixes
+  * Pull upstream patch to remove stime calls that now fail to build with new
+    glibc versions.
+
 ## v0.1.4
 
 * Updates
