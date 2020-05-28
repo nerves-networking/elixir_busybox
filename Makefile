@@ -28,6 +28,8 @@ GNU_HOST_NAME =
 MAKE_ENV = KCONFIG_NOTIMESTAMP=1
 MAKE_OPTS = CONFIG_PREFIX="$(PREFIX)"
 
+PATCH_DIRS = $(TOP)/patches/common
+
 ifneq ($(CROSSCOMPILE),)
 MAKE_OPTS += CROSS_COMPILE="$(CROSSCOMPILE)-"
 endif
@@ -45,7 +47,7 @@ ifeq ($(SED),)
 endif
 
 MAKE_OPTS += SED=$(SED)
-PATCH_DIRS = $(TOP)/patches/Darwin
+PATCH_DIRS += $(TOP)/patches/Darwin
 
 ifeq ($(CROSSCOMPILE),)
 $(warning Native OS compilation is not supported on OSX. Skipping compilation.)
